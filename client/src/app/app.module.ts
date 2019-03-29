@@ -1,4 +1,4 @@
-import {NgModule, ApplicationRef} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {HttpClientModule} from '@angular/common/http';
@@ -23,23 +23,18 @@ import {AgmCoreModule} from '@agm/core';
 import {AddUserComponent} from './users/add-user.component';
 import {AddRideComponent} from './rides/add-ride.component';
 
-import {MatCardModule} from '@angular/material/card';
-import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
-
-@NgModule({
+@NgModule(<NgModule>{
   imports: [
     BrowserModule,
     HttpClientModule,
     Routing,
     CustomModule,
-    MatCardModule,
-    MatDatepickerModule,
     CommonModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey:'AIzaSyBp5fFU5A_0v1Tp7MqftOMroOCwTOEwUwc'
+      apiKey: 'AIzaSyBp5fFU5A_0v1Tp7MqftOMroOCwTOEwUwc'
     })
   ],
   declarations: [
@@ -51,7 +46,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
   ],
   providers: [
-    UserListService,RideListService,
+    UserListService, RideListService,
     {provide: APP_BASE_HREF, useValue: '/'},
   ],
   entryComponents: [
