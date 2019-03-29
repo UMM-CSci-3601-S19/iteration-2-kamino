@@ -1,7 +1,9 @@
-import {NgModule} from '@angular/core';
+import {NgModule, ApplicationRef} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {HttpClientModule} from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {UserComponent} from './users/user.component';
@@ -16,6 +18,7 @@ import {Routing} from './app.routes';
 import {APP_BASE_HREF} from '@angular/common';
 
 import {CustomModule} from './custom.module';
+import {AgmCoreModule} from '@agm/core';
 
 import {AddUserComponent} from './users/add-user.component';
 import {AddRideComponent} from './rides/add-ride.component';
@@ -32,16 +35,18 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     Routing,
     CustomModule,
     MatCardModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    CommonModule,
+    FormsModule,
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyBp5fFU5A_0v1Tp7MqftOMroOCwTOEwUwc'
+    })
   ],
   declarations: [
     AppComponent,
     HomeComponent,
-
     UserListComponent, RideListComponent,
-
     UserComponent,
-
     AddUserComponent, AddRideComponent,
 
   ],
