@@ -34,7 +34,7 @@ import {AddRideComponent} from './rides/add-ride.component';
     CommonModule,
     FormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBp5fFU5A_0v1Tp7MqftOMroOCwTOEwUwc'
+      apiKey: 'AIzaSyC0iaWrh4KXrN5Y06g0e3aj3QHmgXIaVJg'
     })
   ],
   declarations: [
