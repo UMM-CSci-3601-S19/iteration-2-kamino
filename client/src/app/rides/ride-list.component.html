@@ -25,21 +25,56 @@
             <div class="seats-left">
               <small>{{ride.seatsAvailable}} SEATS LEFT</small>
             </div>
-            <!-- this creates a google map on the page with the given lat/lng from -->
-            <!-- the component as the initial center of the map: -->
-            <agm-map [latitude]="51.673858" [longitude]="7.815982">
-              <agm-marker [latitude]="51.673858" [longitude]="7.815982"></agm-marker>
-            </agm-map>
           </mat-card-title>
         </mat-card-header>
-
-        <mat-card-content>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
           <div class="route">
             <div class="ride-info origin">{{ride.origin}}</div>
             <mat-icon>play_arrow</mat-icon>
             <div class="ride-info destination">{{ride.destination}}</div>
           </div>
+          </mat-expansion-panel-header>
+            <style>
+            /* Always set the map height explicitly to define the size of the div
+             * element that contains the map. */
+            #map {
+              height: 100%;
+              width: 97%;
+            }
+            /* Optional: Makes the sample page fill the window. */
+            html, body {
+              height: 100%;
+              margin: 50px;
+              padding: 50px;
+              border-color: maroon;
+            }
+          </style>
+          <div id="map"></div>
+            <!-- this creates a google map on the page with the given lat/lng from -->
+            <!-- the component as the initial center of the map: -->
+            <agm-map
+              [latitude]="45.5890"
+              [longitude]="-95.8970"
+              [zoom]=14
+            (mapClick)="mapClicked($event)">
+              <agm-marker
+                *ngFor="let m of markers; let i = index"
+                (markerClick)="clickedMarker(m.label, i)"
+                [latitude]="m.lat"
+                [longitude]="m.lng"
+                [label]="m.label"
+                [markerDraggable]="m.draggable"
+                (dragEnd)="markerDragEnd(m, $event)">
 
+                <agm-info-window>
+                  <strong>InfoWindow content</strong>
+                </agm-info-window>
+
+              </agm-marker>
+            </agm-map>
+        </mat-expansion-panel>
+          <mat-card-content>
           <div id="ride-info-driver-id" class="ride-info driver">
             {{ride.driver}} is offering this ride
           </div>
