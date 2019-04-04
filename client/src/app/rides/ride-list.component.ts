@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {RideListService} from './ride-list.service';
 import {Ride} from './ride';
 import {Observable} from 'rxjs/Observable';
+import { GeocodeService } from './geocode.service';
+import { Location } from './location-model';
 
 @Component({
   selector: 'ride-list-component',
@@ -14,8 +16,13 @@ export class RideListComponent implements OnInit {
   // public so that tests can reference them (.spec.ts)
   public rides: Ride[];
 
+  address = 'Morris';
+  location: Location;
+  loading: boolean;
+
+
   // Inject the RideListService into this component.
-  constructor(public rideListService: RideListService) {
+  constructor(public rideListService: RideListService, private geocodeService: GeocodeService, private ref: ChangeDetectorRef,) {
  //   rideListService.addListener(this);
   }
 
@@ -54,50 +61,22 @@ export class RideListComponent implements OnInit {
   ngOnInit(): void {
     this.refreshRides();
     this.loadService();
+    this.showLocation();
   }
 
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`)
+  showLocation() {
+    this.addressToCoordinates();
   }
 
-  // mapClicked($event: MouseEvent) {
-  //   this.markers.push({
-  //     lat: $event.coords.lat,
-  //     lng: $event.coords.lng,
-  //     draggable: true
-  //   });
-  // }
-
-  markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
+  addressToCoordinates() {
+    this.loading = true;
+    this.geocodeService.geocodeAddress(this.address)
+      .subscribe((location: Location) => {
+          this.location = location;
+          this.loading = false;
+          this.ref.detectChanges();
+        }
+      );
   }
 
-  markers: marker[] = [
-    {
-      lat: 45.5890,
-      lng: -95.8970,
-      label: 'A',
-      draggable: true
-    },
-    {
-      lat: 51.373858,
-      lng: 7.215982,
-      label: 'B',
-      draggable: false
-    },
-    {
-      lat: 51.723858,
-      lng: 7.895982,
-      label: 'C',
-      draggable: true
-    }
-  ]
-
-}
-
-interface marker {
-  lat: number;
-  lng: number;
-  label?: string;
-  draggable: boolean;
 }

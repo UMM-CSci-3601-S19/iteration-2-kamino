@@ -16,6 +16,7 @@ import {RideListService} from './rides/ride-list.service';
 
 import {Routing} from './app.routes';
 import {APP_BASE_HREF} from '@angular/common';
+import { GeocodeService } from './rides/geocode.service';
 
 import {CustomModule} from './custom.module';
 import {AgmCoreModule} from '@agm/core';
@@ -48,6 +49,7 @@ import {AddRideComponent} from './rides/add-ride.component';
   providers: [
     UserListService, RideListService,
     {provide: APP_BASE_HREF, useValue: '/'},
+    GeocodeService,
   ],
   entryComponents: [
     AddUserComponent, AddRideComponent

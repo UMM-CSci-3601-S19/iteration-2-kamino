@@ -35,6 +35,10 @@
             <div class="ride-info destination">{{ride.destination}}</div>
           </div>
           </mat-expansion-panel-header>
+          <form (ngSubmit)="showLocation()">
+            <input type="text" [(ngModel)]= "address" required [ngModelOptions]="{standalone: true}">
+            <button type="submit">Show Location</button>
+          </form>
             <style>
             /* Always set the map height explicitly to define the size of the div
              * element that contains the map. */
@@ -53,26 +57,18 @@
           <div id="map"></div>
             <!-- this creates a google map on the page with the given lat/lng from -->
             <!-- the component as the initial center of the map: -->
-            <agm-map
-              [latitude]="45.5890"
-              [longitude]="-95.8970"
-              [zoom]=14
-            (mapClick)="mapClicked($event)">
-              <agm-marker
-                *ngFor="let m of markers; let i = index"
-                (markerClick)="clickedMarker(m.label, i)"
-                [latitude]="m.lat"
-                [longitude]="m.lng"
-                [label]="m.label"
-                [markerDraggable]="m.draggable"
-                (dragEnd)="markerDragEnd(m, $event)">
-
-                <agm-info-window>
-                  <strong>InfoWindow content</strong>
-                </agm-info-window>
-
-              </agm-marker>
-            </agm-map>
+          <agm-map
+            [latitude]="location?.lat"
+            [longitude]="location?.lng"
+            [zoom]="14"
+            [disableDefaultUI]="false"
+            [zoomControl]="false">
+            <agm-marker
+              [latitude]="location?.lat"
+              [longitude]="location?.lng">
+            </agm-marker>
+          </agm-map>
+          <p *ngIf="loading">Loading...</p>
         </mat-expansion-panel>
           <mat-card-content>
           <div id="ride-info-driver-id" class="ride-info driver">
