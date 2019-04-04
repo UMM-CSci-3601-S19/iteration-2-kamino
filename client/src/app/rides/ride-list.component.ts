@@ -9,7 +9,7 @@ import { Location } from './location-model';
   selector: 'ride-list-component',
   templateUrl: 'ride-list.component.html',
   styleUrls: ['./ride-list.component.scss'],
-  providers: [],
+  providers: [GeocodeService],
 })
 
 export class RideListComponent implements OnInit {
@@ -22,7 +22,9 @@ export class RideListComponent implements OnInit {
 
 
   // Inject the RideListService into this component.
-  constructor(public rideListService: RideListService, private geocodeService: GeocodeService, private ref: ChangeDetectorRef,) {
+  constructor(public rideListService: RideListService,
+              private geocodeService: GeocodeService,
+              private ref: ChangeDetectorRef,) {
  //   rideListService.addListener(this);
   }
 
