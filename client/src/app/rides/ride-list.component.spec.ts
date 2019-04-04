@@ -8,6 +8,8 @@ import {CustomModule} from '../custom.module';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
+import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
+import {MapsAPILoader} from '@agm/core';
 
 describe('Ride list', () => {
 
@@ -58,7 +60,9 @@ describe('Ride list', () => {
     TestBed.configureTestingModule({
       imports: [CustomModule],
       declarations: [RideListComponent],
-      providers: [{provide: RideListService, useValue: rideListServiceStub}]
+      providers: [{provide: RideListService, useValue: rideListServiceStub},
+      MapsAPILoader],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
     });
   });
 
@@ -160,7 +164,9 @@ describe('Misbehaving Ride List', () => {
     TestBed.configureTestingModule({
       imports: [FormsModule, CustomModule],
       declarations: [RideListComponent],
-      providers: [{provide: RideListService, useValue: rideListServiceStub}]
+      providers: [{provide: RideListService, useValue: rideListServiceStub},
+      MapsAPILoader],
+      schemas:[CUSTOM_ELEMENTS_SCHEMA]
     });
   });
 

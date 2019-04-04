@@ -15,7 +15,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         CustomModule,
-        AppModule
+        AppModule,
       ],
     });
 
