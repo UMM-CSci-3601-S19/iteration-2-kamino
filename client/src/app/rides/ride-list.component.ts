@@ -1,21 +1,28 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {RideListService} from './ride-list.service';
 import {Ride} from './ride';
 import {Observable} from 'rxjs/Observable';
+import { GeocodeService } from './geocode.service';
+import { Location } from './location-model';
 
 @Component({
   selector: 'ride-list-component',
   templateUrl: 'ride-list.component.html',
   styleUrls: ['./ride-list.component.scss'],
-  providers: []
+  providers: [],
 })
 
 export class RideListComponent implements OnInit {
   // public so that tests can reference them (.spec.ts)
   public rides: Ride[];
 
+  address = 'Morris';
+  location: Location;
+  loading: boolean;
+
+
   // Inject the RideListService into this component.
-  constructor(public rideListService: RideListService) {
+  constructor(public rideListService: RideListService, private geocodeService: GeocodeService, private ref: ChangeDetectorRef,) {
  //   rideListService.addListener(this);
   }
 
@@ -54,5 +61,22 @@ export class RideListComponent implements OnInit {
   ngOnInit(): void {
     this.refreshRides();
     this.loadService();
+    this.showLocation();
   }
+
+  showLocation() {
+    this.addressToCoordinates();
+  }
+
+  addressToCoordinates() {
+    this.loading = true;
+    this.geocodeService.geocodeAddress(this.address)
+      .subscribe((location: Location) => {
+          this.location = location;
+          this.loading = false;
+          this.ref.detectChanges();
+        }
+      );
+  }
+
 }
