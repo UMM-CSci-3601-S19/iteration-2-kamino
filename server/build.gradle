@@ -62,4 +62,4 @@ buildExecutable.dependsOn(build)
 
 runAllTests.dependsOn check
 
-check.dependsOn(":client:runClientTests")
+//check.dependsOn(":client:runClientTests")
